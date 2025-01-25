@@ -1,50 +1,56 @@
-// Only valid if the numbers are single digit
 public class PrintAlphabetsAccordingToAdjacentNumber {
     public static void main(String[] args) {
 
         // Input String
         String str = "a10b6c23";
 
-        int index = 0;
-        StringBuilder concatNumber = new StringBuilder();
-        boolean flag = false;
+        // Initialize the char with null value
+        char alphabet = '\0';
 
+        // StringBuilder type to store the entire number by appending each number
+        StringBuilder concatNumber = new StringBuilder();
+
+        // StringBuilder type object to append the alphabet
         StringBuilder sb = new StringBuilder();
 
         // Loop to traverse the String
         for (int i = 0; i < str.length(); i++) {
 
-            // Store the character index to conditionally check
+            // Storing the character by index for conditional check
             char ch = str.charAt(i);
 
-            // Conditional check of each character stored on variable ch
+            // Conditional check if character is an alphabet
             if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')) {
-                index = i;
-                // Skipping the loop if the character is an alphabet irrespective of case
-                continue;
-                // Conditional check to compare character to any number
+
+                // Condition to check if concatNumber has a length
+                if (concatNumber.length() > 0) {
+
+                    // Convert concatNumber variable to String and parse to Integer
+                    int n = Integer.parseInt(concatNumber.toString());
+
+                    // Loop to append the last alphabet equal to the adjacent number
+                    for (int j = 0; j < n; j++) {
+                        sb.append(alphabet);
+                    }
+                }
+
+                // Store the alphabet in the identifier alphabet
+                alphabet = ch;
+
+                // Set concatNumber length to 0 for next use
+                concatNumber.setLength(0);
+
+                // Conditional check if character is a number and appending
             } else if (ch >= '0' && ch <= '9') {
-                concatNumber.append(ch);
-
-                if ((i != str.length() - 1) && ((str.charAt(i + 1) >= 'a' && str.charAt(i + 1) <= 'z')
-                        || (str.charAt(i + 1) >= 'A' && str.charAt(i + 1) <= 'Z'))) {
-
-                    flag = true;
-                } else if (i == str.length() - 1)
-                    flag = true;
-            }
-
-            if (flag) {
-                int n = Integer.parseInt(concatNumber.toString());
-                for (int j = 0; j < n; j++)
-                    sb.append(str.charAt(index));
-
-                flag = false;
-                concatNumber = new StringBuilder();
+                concatNumber.append(str.charAt(i));
             }
         }
 
-        // Print the new String
+        // Loop to append the last character according to adjacent number
+        for (int i = 0; i < Integer.parseInt(concatNumber.toString()); i++) {
+            sb.append(alphabet);
+        }
+
         System.out.println(sb);
     }
 }
