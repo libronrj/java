@@ -1,3 +1,4 @@
+// This program finds the most number of palindromes in a String and prints the word with max occurence
 public class MostRepeatedPalindrome {
     public static void main(String[] args) {
 
